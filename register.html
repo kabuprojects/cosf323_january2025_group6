@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='popup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>TINDI CLOTHING</h1>
+        <h2>Register</h2>
+
+        <form action="/register" method="POST" enctype="multipart/form-data">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+
+            <!-- ✅ Face Image Upload -->
+            <label for="face-image">Upload Face Image (Required)</label>
+            <input type="file" name="image" id="face-image" accept="image/*" required>
+
+            <!-- ✅ Image Preview -->
+            <img id="image-preview" src="#" alt="Image Preview" style="display: none; width: 150px; height: 150px; border-radius: 50%; margin-top: 10px;">
+
+            <!-- ✅ Fraud Policy Agreement Checkbox -->
+            <div class="fraud-policy">
+                <input type="checkbox" name="fraud_policy" id="fraud_policy" required>
+                <label for="fraud_policy">
+                    I agree to the <a href="/fraud-policy" target="_blank">Fraud Policy Terms</a>.
+                </label>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <a href="login">Already have an account?</a>
+
+        <!-- Flash Messages (Below Form) -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <div id="flash-container">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- ✅ JavaScript for Auto Disappearance of Flash Messages -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let flashMessages = document.querySelectorAll(".alert");
+
+            flashMessages.forEach((msg) => {
+                setTimeout(() => {
+                    msg.style.opacity = "0"; // Fade out effect
+                    setTimeout(() => msg.remove(), 500); // Remove from DOM
+                }, 3000);
+            });
+
+            // ✅ Image Preview Functionality
+            document.getElementById("face-image").addEventListener("change", function (event) {
+                let file = event.target.files[0];
+                if (file) {
+                    let reader = new FileReader();
+                    reader.onload = function (e) {
+                        let preview = document.getElementById("image-preview");
+                        preview.src = e.target.result;
+                        preview.style.display = "block";
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+
+    <!-- ✅ Basic CSS for Fraud Policy Section & Image Preview -->
+    <style>
+        .fraud-policy {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .fraud-policy input {
+            width: 18px;
+            height: 18px;
+        }
+        #image-preview {
+            border: 2px solid #ccc;
+            padding: 5px;
+        }
+    </style>
+</body>
+</html>

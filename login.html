@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+    /* Flash Message Container - Positioned Below Form */
+#flash-container {
+    margin-top: 15px; /* Space between form and messages */
+    width: 100%;
+    text-align: center;
+}
+
+/* Flash Message Styling */
+.alert {
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block;
+    min-width: 250px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Message Colors */
+.alert-success { background-color: #4CAF50; color: white; } /* Green */
+.alert-error { background-color: #f44336; color: white; }   /* Red */
+.alert-warning { background-color: #ff9800; color: white; } /* Orange */
+.alert-info { background-color: #2196F3; color: white; }    /* Blue */
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form action="/login" method="POST">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <a href="/register">Don't have an account? Register</a>
+    </div>
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div id="flash-container">
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+<script>
+    // Wait for the page to load
+    document.addEventListener("DOMContentLoaded", function () {
+        // Select all flash messages
+        let flashMessages = document.querySelectorAll(".flash-message");
+
+        // Remove each message after 3 seconds
+        flashMessages.forEach((msg) => {
+            setTimeout(() => {
+                msg.style.opacity = "0"; // Fade out
+                setTimeout(() => msg.remove(), 500); // Remove from DOM
+            }, 3000);
+        });
+    });
+</script>
+
+
+</body>
+</html>

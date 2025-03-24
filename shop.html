@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">TINDI CLOTHING</div>
+            <ul class="nav-links">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <a href="{{ url_for('cart') }}" class="btn">Go to Cart</a>
+                <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Find Your Style</h1>
+            <p>Shop the latest trends with exclusive deals.</p>
+        </div>
+    </section>
+
+    <section class="products">
+        <h2>Our Products</h2>
+        <div class="product-grid">
+            <div class="product">
+                <img src="{{ url_for('static', filename='tshirt.jpg') }}" alt="T-Shirt">
+                <h3>Casual T-Shirt</h3>
+                <p>Ksh 10</p>
+                <button class="btn add-to-cart" data-name="tshirt" data-price="10.00">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="{{ url_for('static', filename='jeans.jpg') }}" alt="Jeans">
+                <h3>Denim Jeans</h3>
+                <p>Ksh 300</p>
+                <button class="btn add-to-cart" data-name="jeans" data-price="300.00">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="{{ url_for('static', filename='hoodie.jpg') }}" alt="Hoodie">
+                <h3>Stylish Hoodie</h3>
+                <p>Ksh 900</p>
+                <button class="btn add-to-cart" data-name="hoodie" data-price="900.00">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="{{ url_for('static', filename='jacket.jpg') }}" alt="Jacket">
+                <h3>Leather Jacket</h3>
+                <p>Ksh 1200</p>
+                <button class="btn add-to-cart" data-name="Leather Jacket" data-price="1200.00">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Tindi Clothing. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const buttons = document.querySelectorAll(".add-to-cart");
+
+            buttons.forEach(button => {
+                button.addEventListener("click", function () {
+                    const itemName = this.getAttribute("data-name");
+                    const itemPrice = this.getAttribute("data-price");
+
+                    fetch("/add_to_cart", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        body: `name=${encodeURIComponent(itemName)}&price=${encodeURIComponent(itemPrice)}`,
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        alert("Item added to cart!");
+                    })
+                    .catch(error => console.error("Error:", error));
+                });
+            });
+        });
+    </script>
+</body>
+</html>
