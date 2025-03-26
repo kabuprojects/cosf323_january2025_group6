@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M-Pesa Verification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='popup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>M-Pesa Verification</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('mpesa_verification') }}" method="POST">
+            <label for="verification_code">Enter the OTP sent to your phone:</label>
+            <input type="text" id="verification_code" name="verification_code" required>
+
+            <button type="submit" name="action" value="pay">Pay</button>
+        </form>
+
+        <p>Didn't receive the code? <a href="{{ url_for('payment') }}">Resend OTP</a></p>
+    </div>
+    <script>
+        // Wait for the page to load
+        document.addEventListener("DOMContentLoaded", function () {
+            // Select all flash messages
+            let flashMessages = document.querySelectorAll(".flash-message");
+
+            // Remove each message after 3 seconds
+            flashMessages.forEach((msg) => {
+                setTimeout(() => {
+                    msg.style.opacity = "0"; // Fade out
+                    setTimeout(() => msg.remove(), 500); // Remove from DOM
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>

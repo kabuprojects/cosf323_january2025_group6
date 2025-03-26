@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Verification Code</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Enter Verification Code</h2>
+        <p>A verification code has been sent to your email: <strong>{{ email }}</strong></p>
+
+        <form method="POST">
+            <label for="code">Verification Code:</label>
+            <input type="text" name="code" id="code" required>
+
+            <button type="submit">Verify</button>
+        </form>
+
+        <p><a href="{{ url_for('verify_email') }}">Resend Code</a></p>
+        <p><a href="{{ url_for('login') }}">Back to Login</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Policy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Fraud Prevention Policy</h2>
+        <p>By registering on this platform, you agree to abide by the following fraud prevention policies:</p>
+
+        <ul>
+            <li>Providing false information during registration or transactions is strictly prohibited.</li>
+            <li>Any attempt to manipulate payment or authentication processes will result in an account ban.</li>
+            <li>Users must use valid and verifiable email addresses and phone numbers.</li>
+            <li>Sharing accounts or using multiple accounts to bypass security measures is not allowed.</li>
+            <li>Suspected fraudulent activity may be reported to relevant authorities.</li>
+        </ul>
+
+        <p>Failure to comply with these policies may result in account suspension or permanent blocking.</p>
+
+        <a href="/register" class="btn">Back to Registration</a>
+    </div>
+
+    <!-- ✅ Basic CSS for Styling (Optional, add in style.css) -->
+    <style>
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+        ul {
+            text-align: left;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</body>
+</html>

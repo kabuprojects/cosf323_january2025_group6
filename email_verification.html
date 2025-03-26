@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='popup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Verify Your Email</h2>
+       <form method="POST" action="{{ url_for('email_verification') }}">
+    <label for="email">Enter Email:</label>
+    <input type="email" name="email" required>
+
+    <label for="code">Enter Verification Code:</label>
+    <input type="text" name="code" required>
+
+    <button type="submit">Verify</button>
+</form>
+
+    </div>
+{% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<script>
+    // Wait for the page to load
+    document.addEventListener("DOMContentLoaded", function () {
+        // Select all flash messages
+        let flashMessages = document.querySelectorAll(".flash-message");
+
+        // Remove each message after 3 seconds
+        flashMessages.forEach((msg) => {
+            setTimeout(() => {
+                msg.style.opacity = "0"; // Fade out
+                setTimeout(() => msg.remove(), 500); // Remove from DOM
+            }, 3000);
+        });
+    });
+</script>
+</body>
+</html>

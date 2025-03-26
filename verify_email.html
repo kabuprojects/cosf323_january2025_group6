@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Verify Email</h2>
+        <p>Enter your email to receive a verification code.</p>
+
+        <form method="POST">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
+
+            <button type="submit">Send Verification Code</button>
+        </form>
+
+        <p><a href="{{ url_for('login') }}">Back to Login</a></p>
+    </div>
+</body>
+</html>
